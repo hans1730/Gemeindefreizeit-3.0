@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gemeindefreizeit 2027</title>
+<style>
+:root{--bg:#fbf6ee;--card:#fff;--ink:#2b2a33;--mute:#6f6b78;--acc:#e8743b;--acc2:#2f8f83;--line:#eadfcf;--sun:#f5b544;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17161c;--card:#22212a;--ink:#f1ede6;--mute:#a19cad;--line:#34323d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17161c;--card:#22212a;--ink:#f1ede6;--mute:#a19cad;--line:#34323d;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 90px}
+.hero{margin:0 -16px;padding:34px 22px 56px;color:#fff;background:linear-gradient(150deg,#e8743b,#f5a04a 55%,#2f8f83);border-radius:0 0 32px 32px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.18)}
+.hero small{letter-spacing:.14em;text-transform:uppercase;opacity:.9;font-size:12px}
+.hero h1{margin:6px 0 4px;font-size:32px;line-height:1.15}
+.hero p{margin:0;opacity:.95}
+.count{display:flex;gap:10px;margin:-34px 0 6px;position:relative}
+.count div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 6px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.count b{display:block;font-size:24px;color:var(--acc)}.count span{font-size:12px;color:var(--mute)}
+h2{font-size:20px;margin:26px 0 10px}
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.day{flex:0 0 auto;width:58px;padding:9px 0;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:center;font:inherit;cursor:pointer}
+.day span{display:block;font-size:11px;color:var(--mute);text-transform:uppercase}.day b{font-size:20px}
+.day[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}.day[aria-pressed="true"] span{color:#ffe9dc}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:10px 0}
+.ev{display:flex;gap:14px;align-items:flex-start}
+.ev time{flex:0 0 52px;font-weight:700;color:var(--acc2);font-variant-numeric:tabular-nums}
+.ev h3{margin:0;font-size:16px}.ev p{margin:2px 0 0;color:var(--mute);font-size:14px}
+.note{font-size:13px;color:var(--mute);margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.info i{font-style:normal;font-size:24px}.info h3{margin:4px 0 2px;font-size:15px}.info p{margin:0;font-size:14px;color:var(--mute)}
+.full{grid-column:1/-1}
+ul.pack{list-style:none;padding:0;margin:0}
+ul.pack li{padding:9px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+ul.pack li:last-child{border:0}
+ul.pack input{width:20px;height:20px;accent-color:var(--acc2)}
+ul.pack input:checked+span{text-decoration:line-through;color:var(--mute)}
+.search{width:100%;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin-bottom:8px}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:8px 0;padding:0 16px}
+summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::after{content:"+";color:var(--acc);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin:0 0 14px;color:var(--mute)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav div{display:flex;max-width:640px;width:100%}
+nav button{flex:1;border:0;background:none;color:var(--mute);font:inherit;font-size:12px;padding:6px 0;cursor:pointer}
+nav button i{display:block;font-style:normal;font-size:22px}
+nav button[aria-current="true"]{color:var(--acc);font-weight:700}
+section{display:none}section.on{display:block}
+.empty{text-align:center;color:var(--mute);padding:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <small>Gemeindefreizeit</small>
+  <h1>Sommer 2027</h1>
+  <p>📍 Jugendgästehaus Stadtler<br>17. – 23. Juli 2027</p>
+</header>
+<div class="count" id="count"></div>
+
+<section id="s-prog" class="on">
+  <h2>Programm</h2>
+  <div class="days" id="days"></div>
+  <div id="events"></div>
+  <p class="note">Das Programm ist ein Entwurf und wird noch angepasst.</p>
+</section>
+
+<section id="s-info">
+  <h2>Infos</h2>
+  <div class="grid">
+    <div class="info"><i>📅</i><h3>Zeitraum</h3><p>Sa, 17.07. bis Fr, 23.07.2027</p></div>
+    <div class="info"><i>🏡</i><h3>Unterkunft</h3><p>Jugendgästehaus Stadtler</p></div>
+    <div class="info"><i>🍽️</i><h3>Verpflegung</h3><p>Vollverpflegung (Details folgen)</p></div>
+    <div class="info"><i>📞</i><h3>Kontakt</h3><p>Leitungsteam (Nummer folgt)</p></div>
+  </div>
+  <h2>Packliste</h2>
+  <div class="card"><ul class="pack" id="pack"></ul></div>
+</section>
+
+<section id="s-qa">
+  <h2>Fragen &amp; Antworten</h2>
+  <input class="search" id="q" type="search" placeholder="Frage suchen …" aria-label="Fragen durchsuchen">
+  <div id="faq"></div>
+</section>
+</div>
+
+<nav><div>
+  <button data-t="prog" aria-current="true"><i>🗓️</i>Programm</button>
+  <button data-t="info"><i>ℹ️</i>Infos</button>
+  <button data-t="qa"><i>💬</i>Q&amp;A</button>
+</div></nav>
+
+<script>
+// ===== Hier Inhalte anpassen =====
+const START=new Date(2027,6,17), WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
+const PROGRAM=[
+ [["15:00","Anreise & Zimmerverteilung","Ankommen, Betten beziehen"],["18:00","Abendessen","Gemeinsamer Start"],["19:30","Kennenlernabend","Spiele und Begrüßung"]],
+ [["08:00","Frühstück",""],["09:30","Impuls & Gebet","Gemeinsamer Start in den Tag"],["11:00","Gruppenzeit","Austausch in Kleingruppen"],["14:00","Freizeit","Sport, Spiele, Ausruhen"],["19:30","Abendprogramm","Lagerfeuer"]],
+ [["08:00","Frühstück",""],["09:30","Impuls & Gebet",""],["11:00","Workshops","Zur Auswahl"],["14:00","Ausflug","Wanderung in der Umgebung"],["19:30","Spieleabend",""]],
+ [["08:00","Frühstück",""],["09:30","Impuls & Gebet",""],["11:00","Gruppenzeit",""],["14:00","Freizeit",""],["19:30","Abendprogramm",""]],
+ [["08:00","Frühstück",""],["09:30","Impuls & Gebet",""],["11:00","Workshops",""],["14:00","Sport-Turnier","Für alle Altersgruppen"],["19:30","Bunter Abend","Talente gesucht"]],
+ [["08:00","Frühstück",""],["09:30","Impuls & Gebet",""],["11:00","Gruppenzeit",""],["14:00","Freizeit",""],["19:30","Lobpreis-Abend",""]],
+ [["08:00","Frühstück",""],["09:30","Abschlussgottesdienst",""],["11:00","Zimmer räumen & Abreise","Bitte alles mitnehmen"]]
+];
+const PACK=["Bettwäsche / Schlafsack","Handtücher & Waschzeug","Bibel & Notizbuch","Bequeme Kleidung & feste Schuhe","Regenjacke","Sonnencreme & Kappe","Sportzeug & Badesachen","Taschenlampe","Gesellschaftsspiele","Persönliche Medikamente"];
+const FAQ=[
+ ["Wann beginnt und endet die Freizeit?","Wir starten am Samstag, 17.07.2027 und enden am Freitag, 23.07.2027. Genaue Uhrzeiten geben wir rechtzeitig bekannt."],
+ ["Wo findet die Freizeit statt?","Im Jugendgästehaus Stadtler. Die Anfahrtsbeschreibung folgt."],
+ ["Was kostet die Teilnahme?","Die Kosten werden noch bekannt gegeben."],
+ ["Wie melde ich mich an?","Über das Leitungsteam. Anmeldeinfos folgen."],
+ ["Gibt es vegetarisches Essen oder Rücksicht auf Allergien?","Ja, bitte bei der Anmeldung angeben, damit wir planen können."],
+ ["Wie sind die Zimmer aufgeteilt?","Die Zimmerverteilung erfolgt bei der Anreise, Wünsche bitte vorher melden."],
+ ["Gibt es WLAN?","Das klären wir noch. Plane vorsichtshalber ohne."],
+ ["Was passiert bei schlechtem Wetter?","Wir haben für jeden Tag ein Alternativprogramm im Haus."]
+];
+// ==================================
+const $=s=>document.querySelector(s);
+const fmt=d=>d.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"});
+function countdown(){
+  const n=new Date(),diff=START-n;
+  const el=$("#count");
+  if(diff<=0){el.innerHTML='<div><b>🎉</b><span>Die Freizeit läuft!</span></div>';return}
+  const d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);
+  el.innerHTML=`<div><b>${d}</b><span>Tage</span></div><div><b>${h}</b><span>Std.</span></div><div><b>${m}</b><span>Min.</span></div>`;
+}
+countdown();setInterval(countdown,3e4);
+
+let sel=0;
+function days(){
+  $("#days").innerHTML=PROGRAM.map((_,i)=>{const d=new Date(START);d.setDate(d.getDate()+i);
+    return `<button class="day" data-i="${i}" aria-pressed="${i===sel}"><span>${WD[d.getDay()]}</span><b>${d.getDate()}</b></button>`}).join("");
+  const d=new Date(START);d.setDate(d.getDate()+sel);
+  $("#events").innerHTML=`<p class="note" style="margin:0 0 4px"><b>${fmt(d)}</b></p>`+PROGRAM[sel].map(e=>
+    `<div class="card ev"><time>${e[0]}</time><div><h3>${e[1]}</h3>${e[2]?`<p>${e[2]}</p>`:""}</div></div>`).join("");
+}
+$("#days").onclick=e=>{const b=e.target.closest(".day");if(b){sel=+b.dataset.i;days()}};
+days();
+
+$("#pack").innerHTML=PACK.map((p,i)=>`<li><input type="checkbox" id="p${i}"><span>${p}</span></li>`).join("");
+$("#pack").addEventListener("change",e=>{try{const c=[...document.querySelectorAll("#pack input")].map(x=>x.checked?1:0);localStorage.setItem("pack",JSON.stringify(c))}catch(_){}});
+try{const c=JSON.parse(localStorage.getItem("pack")||"[]");document.querySelectorAll("#pack input").forEach((x,i)=>x.checked=!!c[i])}catch(_){}
+
+function faq(){
+  const q=$("#q").value.trim().toLowerCase();
+  const l=FAQ.filter(f=>(f[0]+f[1]).toLowerCase().includes(q));
+  $("#faq").innerHTML=l.length?l.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join(""):'<p class="empty">Keine passende Frage gefunden.</p>';
+}
+$("#q").oninput=faq;faq();
+
+document.querySelector("nav").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;
+  document.querySelectorAll("nav button").forEach(x=>x.removeAttribute("aria-current"));
+  b.setAttribute("aria-current","true");
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("on"));
+  $("#s-"+b.dataset.t).classList.add("on");scrollTo(0,0);
+};
+</script>
+</body>
+</html>
